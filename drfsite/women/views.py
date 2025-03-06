@@ -6,11 +6,13 @@ from rest_framework.response import Response
 from .models import Women
 from .serializers import WomenSerializer
 
-# Без сериализатора
+# Реализация сериализатора
 class WomenAPIView(APIView):
     def get(self, request):
-        lst = Women.objects.all().values()
-        return Response({'posts': list(lst)})
+        # Формирование списка из объекта классов Women
+        w = Women.objects.all()
+        # Передача параметров на Сериализатор
+        return Response({'posts': WomenSerializer(w, many=True).data}) # many - для списка записей
 
     def post(self, request):
         post_new = Women.objects.create(
@@ -18,7 +20,7 @@ class WomenAPIView(APIView):
             content=request.data['content'],        # которые были отправлены в запросе 
             cat_id=request.data['cat_id']           # POST, PUT или PATCH
         )
-        return Response({'post': model_to_dict(post_new)})
+        return Response({'post': WomenSerializer(post_new).data})
 
 # class WomenAPIView(generics.ListAPIView):
 #     queryset = Women.objects.all()
