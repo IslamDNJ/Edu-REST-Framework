@@ -1,16 +1,11 @@
-import io
 from rest_framework import serializers
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
-
-from .models import Women
 
 
 class WomenSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=255)
     content = serializers.CharField()
-    time_create = serializers.DateTimeField()
-    time_update = serializers.DateTimeField()
+    time_create = serializers.DateTimeField(read_only=True) # read_only=True - читается при добаление в БД
+    time_update = serializers.DateTimeField(read_only=True) # read_only=True - читается при добаление в БД
     is_published = serializers.BooleanField(default=True)
     cat_id = serializers.IntegerField()
 
