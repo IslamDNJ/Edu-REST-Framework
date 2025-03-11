@@ -1,9 +1,14 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import generics
 
 from .models import Women
 from .serializers import WomenSerializer
 
+# Новый сериализатор, класс представления для чтения и добавления новой записи
+class WomenAPIList(generics.ListCreateAPIView):
+    queryset = Women.objects.all()
+    serializer_class = WomenSerializer
 
 # Реализация сериализатора
 class WomenAPIView(APIView):
