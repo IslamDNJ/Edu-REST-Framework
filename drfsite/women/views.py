@@ -14,3 +14,8 @@ class WomenAPIList(generics.ListCreateAPIView):
 class WomenAPIUpdate(generics.UpdateAPIView):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
+
+
+class WomenAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Women.objects.all()
+    serializer_class = WomenSerializer
